@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Christmas Light Cost Calculator | XmasLightCost.online</title>
+    <meta
+      name="description"
+      content="Quickly calculate how much your Christmas lights cost to run and how much you can save by switching to LED."
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Tailwind CSS Play CDN（开发快速版） -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: "#2E8B57",
+              accent: "#C62828",
+              gold: "#FFD700",
+            },
+            fontFamily: {
+              sans: ["Inter", "system-ui", "sans-serif"],
+            },
+          },
+        },
+      };
+    </script>
+
+    <!-- Google Fonts 可选 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- OG / Social -->
+    <meta property="og:title" content="Christmas Light Cost Calculator" />
+    <meta
+      property="og:description"
+      content="Find out how much your Christmas lights cost to run and how much you can save with LED."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://xmaslightcost.online" />
+
+    <!-- 主 JS（圣诞灯计算器） -->
+    <script src="/assets/js/light-calc.js" defer></script>
+  </head>
+  <body class="bg-slate-50 font-sans text-slate-800">
+    <!-- Header -->
+    <header
+      class="sticky top-0 z-20 border-b border-slate-200 bg-white/80 backdrop-blur"
+    >
+      <div
+        class="mx-auto flex max-w-5xl items-center justify-between px-4 py-3"
+      >
+        <a href="/" class="flex items-center gap-2 font-semibold text-primary">
+          <span class="text-xl">🎄</span>
+          <span>XmasLightCost.online</span>
+        </a>
+        <nav class="flex items-center gap-4 text-sm font-medium">
+          <a
+            href="/"
+            class="text-primary underline-offset-4 hover:underline"
+            >Christmas Light Cost</a
+          >
+          <a
+            href="/turkey-thaw/"
+            class="text-slate-600 underline-offset-4 hover:text-primary hover:underline"
+            >Turkey Thaw Timer</a
+          >
+        </nav>
+      </div>
+    </header>
+
+    <main class="mx-auto max-w-5xl px-4 py-10 space-y-12">
+      <!-- Hero -->
+      <section
+        class="grid gap-8 rounded-3xl bg-slate-100/80 p-6 shadow-sm md:grid-cols-2 md:p-10"
+        id="hero"
+      >
+        <div class="space-y-5">
+          <h1 class="text-3xl font-bold tracking-tight md:text-4xl">
+            Calculate Your Christmas Light Electricity Cost in Seconds
+          </h1>
+          <p class="text-slate-600">
+            Find out how much your festive lights really cost — and how much you
+            could save by switching to LED.
+          </p>
+          <div class="flex flex-wrap items-center gap-3">
+            <a
+              href="#calculator"
+              class="inline-flex items-center justify-center rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-white shadow hover:bg-primary/90 hover:shadow-md transition"
+            >
+              Start calculating
+            </a>
+            <a
+              href="/turkey-thaw/"
+              class="text-sm font-medium text-slate-700 underline-offset-4 hover:text-primary hover:underline"
+            >
+              Or plan your turkey thaw →
+            </a>
+          </div>
+          <p class="text-xs text-slate-500">
+            No login, no tracking. Just quick, seasonal tools.
+          </p>
+        </div>
+        <div
+          class="flex items-center justify-center rounded-2xl bg-gradient-to-br from-primary/10 via-gold/10 to-accent/10 p-6"
+        >
+          <!-- 简单的“圣诞灯屋子”插画占位 -->
+          <div class="relative w-full max-w-sm">
+            <div class="h-32 rounded-2xl bg-slate-800"></div>
+            <div
+              class="absolute inset-x-4 top-4 flex justify-between text-xl"
+            >
+              <span>✨</span><span>✨</span><span>✨</span><span>✨</span
+              ><span>✨</span>
+            </div>
+            <div
+              class="absolute inset-x-8 bottom-[-8px] h-10 rounded-2xl bg-slate-200"
+            ></div>
+            <p class="mt-8 text-center text-sm text-slate-600">
+              Visualize your cozy, well-lit home — without the bill shock.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Calculator + Results -->
+      <section
+        id="calculator"
+        class="grid gap-8 md:grid-cols-2 items-start"
+      >
+        <!-- Calculator Card -->
+        <div
+          class="space-y-6 rounded-3xl bg-white p-6 shadow-sm ring-1 ring-slate-100"
+        >
+          <h2 class="text-xl font-semibold">
+            Christmas Light Cost Calculator
+          </h2>
+
+          <!-- Light type -->
+          <div class="space-y-1 text-sm">
+            <label
+              for="lightType"
+              class="block font-medium text-slate-700"
+              >Light type</label
+            >
+            <select
+              id="lightType"
+              class="mt-1 w-full rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+            >
+              <option value="incandescent">Incandescent</option>
+              <option value="led">LED</option>
+            </select>
+            <p class="text-xs text-slate-500">
+              LED lights use much less electricity than traditional
+              incandescent lights.
+            </p>
+          </div>
+
+          <!-- Power -->
+          <div class="space-y-1 text-sm">
+            <label for="powerInput" class="block font-medium text-slate-700"
+              >Total power (Watts)</label
+            >
+            <div class="flex gap-2">
+              <input
+                id="powerInput"
+                type="number"
+                min="1"
+                step="10"
+                placeholder="e.g. 100"
+                list="powerPresets"
+                class="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+              />
+            </div>
+            <datalist id="powerPresets">
+              <option value="50"></option>
+              <option value="100"></option>
+              <option value="250"></option>
+              <option value="500"></option>
+              <option value="1000"></option>
+            </datalist>
+            <p class="text-xs text-slate-500">
+              Use the total wattage of all your Christmas lights combined.
+            </p>
+          </div>
+
+          <!-- Hours per day -->
+          <div class="space-y-2 text-sm">
+            <div class="flex items-center justify-between">
+              <label
+                for="hoursInput"
+                class="block font-medium text-slate-700"
+                >Hours per day</label
+              >
+              <span
+                id="hoursDisplay"
+                class="text-xs text-slate-500"
+              ></span>
+            </div>
+            <div class="flex items-center gap-2">
+              <input
+                id="hoursInput"
+                type="number"
+                min="1"
+                max="24"
+                step="0.5"
+                value="6"
+                class="w-24 rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+              />
+              <input
+                id="hoursRange"
+                type="range"
+                min="1"
+                max="24"
+                step="0.5"
+                value="6"
+                class="flex-1"
+              />
+            </div>
+            <p class="text-xs text-slate-500">
+              How many hours per day you keep the lights on.
+            </p>
+          </div>
+
+          <!-- Days -->
+          <div class="space-y-1 text-sm">
+            <label for="daysInput" class="block font-medium text-slate-700"
+              >Number of days</label
+            >
+            <input
+              id="daysInput"
+              type="number"
+              min="1"
+              step="1"
+              value="30"
+              class="w-32 rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+            />
+            <p class="text-xs text-slate-500">
+              For example, 30 days for the whole holiday season.
+            </p>
+          </div>
+
+          <!-- Rate -->
+          <div class="space-y-1 text-sm">
+            <div class="flex items-center justify-between">
+              <label for="rateInput" class="block font-medium text-slate-700"
+                >Electricity rate ($/kWh)</label
+              >
+              <button
+                id="useAverageRateBtn"
+                type="button"
+                class="text-xs font-medium text-primary underline-offset-4 hover:underline"
+              >
+                Use average US rate
+              </button>
+            </div>
+            <input
+              id="rateInput"
+              type="number"
+              min="0.01"
+              step="0.01"
+              value="0.12"
+              class="w-32 rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+            />
+            <p class="text-xs text-slate-500">
+              Check your utility bill for your exact rate per kWh.
+            </p>
+          </div>
+
+          <!-- Calculate Button -->
+          <div class="pt-2">
+            <button
+              id="calculateBtn"
+              type="button"
+              class="inline-flex w-full items-center justify-center rounded-full bg-primary px-4 py-2.5 text-sm font-semibold text-white shadow hover:bg-primary/90 hover:shadow-md transition"
+            >
+              Calculate cost
+            </button>
+          </div>
+        </div>
+
+        <!-- Results Card -->
+        <div
+          class="space-y-4 rounded-3xl bg-white p-6 shadow-sm ring-1 ring-slate-100"
+        >
+          <h2 class="text-xl font-semibold">Estimated cost for the season</h2>
+
+          <!-- 初始提示 -->
+          <p
+            id="resultsPlaceholder"
+            class="text-sm text-slate-500"
+          >
+            Fill in your light details and click “Calculate” to see your
+            estimated cost.
+          </p>
+
+          <!-- 结果区域 -->
+          <div id="resultsContainer" class="hidden space-y-4">
+            <div>
+              <p class="text-xs uppercase tracking-wide text-slate-500">
+                Total cost
+              </p>
+              <p id="totalCost" class="text-3xl font-bold text-primary">
+                $0.00
+              </p>
+              <p id="perDayCost" class="text-xs text-slate-500">
+                ≈ $0.00 per day
+              </p>
+            </div>
+
+            <div
+              id="savingsBox"
+              class="hidden rounded-2xl bg-emerald-50 p-4 text-sm"
+            >
+              <p class="font-medium text-emerald-900">LED savings tip</p>
+              <p
+                id="savingsText"
+                class="mt-1 text-emerald-800"
+              ></p>
+            </div>
+
+            <div class="flex flex-wrap gap-3 pt-2">
+              <button
+                id="copySummaryBtn"
+                type="button"
+                class="inline-flex items-center justify-center rounded-full border border-slate-200 px-4 py-2 text-xs font-medium text-slate-700 hover:border-primary hover:text-primary"
+              >
+                Copy summary
+              </button>
+              <span
+                id="copyStatus"
+                class="text-xs text-slate-500"
+              ></span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Affiliate Section -->
+      <section class="space-y-4">
+        <h2 class="text-xl font-semibold">
+          Save money (and the planet) with LED lights 💡
+        </h2>
+        <p class="text-sm text-slate-600">
+          LED Christmas lights use a fraction of the electricity and last much
+          longer than traditional incandescent lights.
+        </p>
+        <div class="grid gap-4 md:grid-cols-3">
+          <!-- Product cards 占位，后续替换为真实联盟链接 -->
+          <article
+            class="flex flex-col rounded-2xl bg-white p-4 shadow-sm ring-1 ring-slate-100"
+          >
+            <div class="h-32 rounded-xl bg-slate-100"></div>
+            <h3 class="mt-3 text-sm font-semibold">
+              Warm White LED String Lights
+            </h3>
+            <p class="mt-1 text-xs text-slate-500">Cozy, classic warm white.</p>
+            <button
+              class="mt-3 inline-flex items-center justify-center rounded-full border border-slate-200 px-3 py-1.5 text-xs font-medium text-slate-700 hover:border-primary hover:text-primary"
+            >
+              View on Amazon
+            </button>
+          </article>
+
+          <article
+            class="flex flex-col rounded-2xl bg-white p-4 shadow-sm ring-1 ring-slate-100"
+          >
+            <div class="h-32 rounded-xl bg-slate-100"></div>
+            <h3 class="mt-3 text-sm font-semibold">
+              Multicolor LED Icicle Lights
+            </h3>
+            <p class="mt-1 text-xs text-slate-500">
+              Perfect for rooflines and porches.
+            </p>
+            <button
+              class="mt-3 inline-flex items-center justify-center rounded-full border border-slate-200 px-3 py-1.5 text-xs font-medium text-slate-700 hover:border-primary hover:text-primary"
+            >
+              View on Amazon
+            </button>
+          </article>
+
+          <article
+            class="flex flex-col rounded-2xl bg-white p-4 shadow-sm ring-1 ring-slate-100"
+          >
+            <div class="h-32 rounded-xl bg-slate-100"></div>
+            <h3 class="mt-3 text-sm font-semibold">LED Net Lights</h3>
+            <p class="mt-1 text-xs text-slate-500">
+              Quickly cover bushes and hedges.
+            </p>
+            <button
+              class="mt-3 inline-flex items-center justify-center rounded-full border border-slate-200 px-3 py-1.5 text-xs font-medium text-slate-700 hover:border-primary hover:text-primary"
+            >
+              View on Amazon
+            </button>
+          </article>
+        </div>
+      </section>
+
+      <!-- FAQ Section -->
+      <section id="faq" class="space-y-4">
+        <h2 class="text-xl font-semibold">
+          Frequently Asked Questions
+        </h2>
+
+        <div class="space-y-3 text-sm text-slate-700">
+          <div>
+            <h3 class="font-medium">
+              How much electricity do Christmas lights use?
+            </h3>
+            <p class="mt-1 text-slate-600">
+              It depends on the wattage of your lights, how many hours per day
+              you run them, and your local electricity rate. Use the calculator
+              above to get a customized estimate.
+            </p>
+          </div>
+
+          <div>
+            <h3 class="font-medium">
+              Are LED Christmas lights really cheaper?
+            </h3>
+            <p class="mt-1 text-slate-600">
+              Yes. LED lights can use up to 80–90% less electricity than
+              traditional incandescent lights, and they also tend to last much
+              longer.
+            </p>
+          </div>
+
+          <div>
+            <h3 class="font-medium">
+              How can I reduce my Christmas lighting bill?
+            </h3>
+            <p class="mt-1 text-slate-600">
+              Use LED lights, put your lights on a timer, reduce the number of
+              hours per day they are on, and focus lighting on key areas rather
+              than covering everything.
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-slate-200 bg-white">
+      <div
+        class="mx-auto flex max-w-5xl flex-col items-center justify-between gap-3 px-4 py-4 text-xs text-slate-500 md:flex-row"
+      >
+        <p>© <span id="yearSpan"></span> XmasLightCost.online</p>
+        <div class="flex flex-wrap items-center gap-4">
+          <a
+            href="/turkey-thaw/"
+            class="underline-offset-4 hover:text-primary hover:underline"
+            >Turkey thaw timer</a
+          >
+          <!-- 预留 About / Privacy 链接 -->
+          <!-- <a href="/about.html" class="underline-offset-4 hover:text-primary hover:underline">About</a> -->
+          <!-- <a href="/privacy.html" class="underline-offset-4 hover:text-primary hover:underline">Privacy</a> -->
+          <span>Made for stress-free holidays ✨</span>
+        </div>
+      </div>
+      <script>
+        // 简单设置年份
+        document.getElementById("yearSpan").textContent =
+          new Date().getFullYear();
+      </script>
+    </footer>
+  </body>
+</html>
