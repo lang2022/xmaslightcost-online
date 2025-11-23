@@ -8,6 +8,28 @@
       content="Quickly calculate how much your Christmas lights cost to run and how much you can save by switching to LED."
     />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="canonical" href="https://xmaslightcost.online/" />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Christmas Light Cost Calculator | XmasLightCost.online" />
+    <meta
+      property="og:description"
+      content="Find out how much your festive lights really cost — and how much you could save with LED."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://xmaslightcost.online/" />
+    <!-- 可选：替换为你自己的分享图路径 -->
+    <meta property="og:image" content="https://xmaslightcost.online/assets/og-main.png" />
+    <meta property="og:site_name" content="XmasLightCost.online" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Christmas Light Cost Calculator | XmasLightCost.online" />
+    <meta
+      name="twitter:description"
+      content="Quickly estimate the electricity cost of your Christmas lights and potential savings with LED."
+    />
+    <meta name="twitter:image" content="https://xmaslightcost.online/assets/og-main.png" />
 
     <!-- Tailwind CSS Play CDN（开发快速版） -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -36,18 +58,34 @@
       rel="stylesheet"
     />
 
-    <!-- OG / Social -->
-    <meta property="og:title" content="Christmas Light Cost Calculator" />
-    <meta
-      property="og:description"
-      content="Find out how much your Christmas lights cost to run and how much you can save with LED."
-    />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://xmaslightcost.online" />
+    <!-- JSON-LD 结构化数据：WebApplication -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Christmas Light Cost Calculator",
+        "url": "https://xmaslightcost.online/",
+        "applicationCategory": "UtilityApplication",
+        "operatingSystem": "All",
+        "description": "Quickly calculate how much your Christmas lights cost to run and how much you can save by switching to LED.",
+        "inLanguage": "en",
+        "publisher": {
+          "@type": "Organization",
+          "name": "XmasLightCost.online",
+          "url": "https://xmaslightcost.online/"
+        },
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        }
+      }
+    </script>
 
     <!-- 主 JS（圣诞灯计算器） -->
     <script src="/assets/js/light-calc.js" defer></script>
   </head>
+
   <body class="bg-slate-50 font-sans text-slate-800">
     <!-- Header -->
     <header
@@ -60,18 +98,33 @@
           <span class="text-xl">🎄</span>
           <span>XmasLightCost.online</span>
         </a>
-        <nav class="flex items-center gap-4 text-sm font-medium">
-          <a
-            href="/"
-            class="text-primary underline-offset-4 hover:underline"
-            >Christmas Light Cost</a
-          >
-          <a
-            href="/turkey-thaw/"
-            class="text-slate-600 underline-offset-4 hover:text-primary hover:underline"
-            >Turkey Thaw Timer</a
-          >
-        </nav>
+      <nav class="flex flex-wrap items-center gap-4 text-sm font-medium">
+        <a
+          href="/"
+          class="text-primary underline-offset-4 hover:underline"
+        >
+          Christmas Light Cost
+        </a>
+        <a
+          href="/turkey-thaw/"
+          class="text-slate-600 underline-offset-4 hover:text-primary hover:underline"
+        >
+          Turkey Thaw Timer
+        </a>
+        <a
+          href="/about.html"
+          class="text-slate-600 underline-offset-4 hover:text-primary hover:underline"
+        >
+          About
+        </a>
+        <a
+          href="/privacy.html"
+          class="text-slate-600 underline-offset-4 hover:text-primary hover:underline"
+        >
+          Privacy
+        </a>
+      </nav>
+
       </div>
     </header>
 
@@ -162,6 +215,29 @@
             </p>
           </div>
 
+          <!-- Country / region -->
+          <div class="space-y-1 text-sm">
+            <label
+              for="countrySelect"
+              class="block font-medium text-slate-700"
+              >Country / region</label
+            >
+            <select
+              id="countrySelect"
+              class="mt-1 w-full rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+            >
+              <option value="us">United States</option>
+              <option value="ca">Canada</option>
+              <option value="uk">United Kingdom</option>
+              <option value="au">Australia</option>
+              <option value="other">Other / not listed</option>
+            </select>
+            <p class="text-xs text-slate-500">
+              We'll pre-fill a typical residential electricity rate for this
+              region. You can still edit the rate below.
+            </p>
+          </div>
+
           <!-- Power -->
           <div class="space-y-1 text-sm">
             <label for="powerInput" class="block font-medium text-slate-700"
@@ -188,6 +264,119 @@
             <p class="text-xs text-slate-500">
               Use the total wattage of all your Christmas lights combined.
             </p>
+          </div>
+
+          <!-- Helper: estimate wattage from strings -->
+          <div class="rounded-2xl bg-slate-50 p-3 space-y-2">
+            <div class="flex items-center justify-between gap-2">
+              <p class="text-xs font-semibold text-slate-700">
+                Need help estimating total wattage?
+              </p>
+              <p
+                id="presetTotalWattage"
+                class="text-xs font-medium text-primary"
+              >
+                Estimated: 0 W
+              </p>
+            </div>
+            <p class="text-xs text-slate-500">
+              Enter how many strings you use. We'll estimate a total wattage
+              based on typical incandescent and LED string ratings.
+            </p>
+            <div class="grid gap-2 text-xs md:grid-cols-2">
+              <!-- Row: incandescent mini -->
+              <div class="flex items-center justify-between gap-2">
+                <div class="flex-1">
+                  <p class="font-medium text-slate-700">
+                    Incandescent mini string (100)
+                  </p>
+                  <p class="text-[11px] text-slate-500">
+                    ≈ 40 W per string
+                  </p>
+                </div>
+                <div class="flex items-center gap-1">
+                  <input
+                    id="incMiniCount"
+                    type="number"
+                    min="0"
+                    step="1"
+                    value="0"
+                    class="w-16 rounded-lg border border-slate-200 bg-white px-2 py-1 text-xs focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+                  />
+                </div>
+              </div>
+
+              <!-- Row: LED mini -->
+              <div class="flex items-center justify-between gap-2">
+                <div class="flex-1">
+                  <p class="font-medium text-slate-700">
+                    LED mini string (100)
+                  </p>
+                  <p class="text-[11px] text-slate-500">
+                    ≈ 5 W per string
+                  </p>
+                </div>
+                <div class="flex items-center gap-1">
+                  <input
+                    id="ledMiniCount"
+                    type="number"
+                    min="0"
+                    step="1"
+                    value="0"
+                    class="w-16 rounded-lg border border-slate-200 bg-white px-2 py-1 text-xs focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+                  />
+                </div>
+              </div>
+
+              <!-- Row: incandescent C9 -->
+              <div class="flex items-center justify-between gap-2">
+                <div class="flex-1">
+                  <p class="font-medium text-slate-700">
+                    C9 incandescent string
+                  </p>
+                  <p class="text-[11px] text-slate-500">
+                    ≈ 150 W per string
+                  </p>
+                </div>
+                <div class="flex items-center gap-1">
+                  <input
+                    id="incC9Count"
+                    type="number"
+                    min="0"
+                    step="1"
+                    value="0"
+                    class="w-16 rounded-lg border border-slate-200 bg-white px-2 py-1 text-xs focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+                  />
+                </div>
+              </div>
+
+              <!-- Row: LED C9 -->
+              <div class="flex items-center justify-between gap-2">
+                <div class="flex-1">
+                  <p class="font-medium text-slate-700">C9 LED string</p>
+                  <p class="text-[11px] text-slate-500">
+                    ≈ 15 W per string
+                  </p>
+                </div>
+                <div class="flex items-center gap-1">
+                  <input
+                    id="ledC9Count"
+                    type="number"
+                    min="0"
+                    step="1"
+                    value="0"
+                    class="w-16 rounded-lg border border-slate-200 bg-white px-2 py-1 text-xs focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+                  />
+                </div>
+              </div>
+            </div>
+            <button
+              id="applyPresetWattageBtn"
+              type="button"
+              class="mt-2 inline-flex w-full items-center justify-center rounded-full border border-slate-200 px-3 py-1.5 text-xs font-medium text-slate-700 hover:border-primary hover:text-primary"
+            >
+              Use this estimated wattage above
+            </button>
           </div>
 
           <!-- Hours per day -->
@@ -249,27 +438,38 @@
           <!-- Rate -->
           <div class="space-y-1 text-sm">
             <div class="flex items-center justify-between">
-              <label for="rateInput" class="block font-medium text-slate-700"
-                >Electricity rate ($/kWh)</label
+              <label
+                for="rateInput"
+                class="block font-medium text-slate-700"
+                >Electricity rate (per kWh)</label
               >
               <button
-                id="useAverageRateBtn"
+                id="useRegionRateBtn"
                 type="button"
                 class="text-xs font-medium text-primary underline-offset-4 hover:underline"
               >
-                Use average US rate
+                Use typical rate for my region
               </button>
             </div>
-            <input
-              id="rateInput"
-              type="number"
-              min="0.01"
-              step="0.01"
-              value="0.12"
-              class="w-32 rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
-            />
+            <div class="flex items-center gap-2">
+              <input
+                id="rateInput"
+                type="number"
+                min="0.01"
+                step="0.01"
+                value="0.18"
+                class="w-32 rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+              />
+              <span
+                id="rateCurrencyHint"
+                class="text-xs text-slate-500"
+              >
+                $ / kWh (typical US residential)
+              </span>
+            </div>
             <p class="text-xs text-slate-500">
-              Check your utility bill for your exact rate per kWh.
+              Check your utility bill for your exact rate. This is only an
+              estimate.
             </p>
           </div>
 
@@ -312,6 +512,10 @@
               <p id="perDayCost" class="text-xs text-slate-500">
                 ≈ $0.00 per day
               </p>
+              <p
+                id="rateContext"
+                class="mt-1 text-xs text-slate-500"
+              ></p>
             </div>
 
             <div
@@ -455,13 +659,24 @@
           <a
             href="/turkey-thaw/"
             class="underline-offset-4 hover:text-primary hover:underline"
-            >Turkey thaw timer</a
           >
-          <!-- 预留 About / Privacy 链接 -->
-          <!-- <a href="/about.html" class="underline-offset-4 hover:text-primary hover:underline">About</a> -->
-          <!-- <a href="/privacy.html" class="underline-offset-4 hover:text-primary hover:underline">Privacy</a> -->
+            Turkey thaw timer
+          </a>
+          <a
+            href="/about.html"
+            class="underline-offset-4 hover:text-primary hover:underline"
+          >
+            About
+          </a>
+          <a
+            href="/privacy.html"
+            class="underline-offset-4 hover:text-primary hover:underline"
+          >
+            Privacy
+          </a>
           <span>Made for stress-free holidays ✨</span>
         </div>
+
       </div>
       <script>
         // 简单设置年份

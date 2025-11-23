@@ -2,13 +2,50 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Turkey Thaw Time & Countdown | XmasLightCost.online</title>
+    <title>Turkey Thaw Time & Countdown Tool | XmasLightCost.online</title>
     <meta
       name="description"
-      content="Calculate how long it will take to thaw your turkey and when you should start, with a simple countdown."
+      content="Calculate how long it will take to thaw your turkey, when you should start, and follow a simple countdown to stay on schedule."
     />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="canonical" href="https://xmaslightcost.online/turkey-thaw/" />
 
+    <!-- Open Graph -->
+    <meta
+      property="og:title"
+      content="Turkey Thaw Time & Countdown Tool | XmasLightCost.online"
+    />
+    <meta
+      property="og:description"
+      content="Plan safe turkey thawing with simple fridge or cold-water guidelines and an optional countdown."
+    />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:url"
+      content="https://xmaslightcost.online/turkey-thaw/"
+    />
+    <meta
+      property="og:image"
+      content="https://xmaslightcost.online/assets/og-main.png"
+    />
+    <meta property="og:site_name" content="XmasLightCost.online" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="Turkey Thaw Time & Countdown Tool | XmasLightCost.online"
+    />
+    <meta
+      name="twitter:description"
+      content="Estimate turkey thaw time by weight and method, and stay on track with a simple countdown."
+    />
+    <meta
+      name="twitter:image"
+      content="https://xmaslightcost.online/assets/og-main.png"
+    />
+
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
       tailwind.config = {
@@ -27,6 +64,31 @@
       };
     </script>
 
+    <!-- 字体（与首页一致） -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- JSON-LD 结构化数据：WebPage -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "name": "Turkey Thaw Time & Countdown Tool",
+        "url": "https://xmaslightcost.online/turkey-thaw/",
+        "description": "Calculate how long it will take to thaw your turkey based on weight and method, and see when you should start.",
+        "inLanguage": "en",
+        "isPartOf": {
+          "@type": "WebSite",
+          "name": "XmasLightCost.online",
+          "url": "https://xmaslightcost.online/"
+        }
+      }
+    </script>
+
     <script src="/assets/js/turkey-thaw.js" defer></script>
   </head>
   <body class="bg-slate-50 font-sans text-slate-800">
@@ -41,17 +103,31 @@
           <span class="text-xl">🎄</span>
           <span>XmasLightCost.online</span>
         </a>
-        <nav class="flex items-center gap-4 text-sm font-medium">
+        <nav class="flex flex-wrap items-center gap-4 text-sm font-medium">
           <a
             href="/"
             class="text-slate-600 underline-offset-4 hover:text-primary hover:underline"
-            >Christmas Light Cost</a
           >
+            Christmas Light Cost
+          </a>
           <a
             href="/turkey-thaw/"
             class="text-primary underline-offset-4 hover:underline"
-            >Turkey Thaw Timer</a
           >
+            Turkey Thaw Timer
+          </a>
+          <a
+            href="/about.html"
+            class="text-slate-600 underline-offset-4 hover:text-primary hover:underline"
+          >
+            About
+          </a>
+          <a
+            href="/privacy.html"
+            class="text-slate-600 underline-offset-4 hover:text-primary hover:underline"
+          >
+            Privacy
+          </a>
         </nav>
       </div>
     </header>
@@ -206,6 +282,12 @@
               ></p>
             </div>
 
+            <!-- 晚开始警告（由 JS 控制显示） -->
+            <div
+              id="lateWarning"
+              class="hidden rounded-2xl bg-red-50 p-3 text-xs text-red-800"
+            ></div>
+
             <div
               id="safetyBox"
               class="rounded-2xl bg-amber-50 p-4 text-xs text-amber-900"
@@ -215,6 +297,11 @@
                 id="safetyText"
                 class="mt-1"
               ></p>
+              <p class="mt-2 text-[11px] text-amber-700">
+                Times are based on widely used food-safety guidelines (for
+                example USDA/CDC style recommendations). Always check official
+                guidance in your country.
+              </p>
             </div>
           </div>
         </div>
@@ -240,6 +327,90 @@
           This is an approximation based on typical food safety guidelines. When
           in doubt, always check your turkey temperature and follow your
           country's official guidance.
+        </p>
+      </section>
+
+      <!-- Thawing guidelines at a glance -->
+      <section
+        class="space-y-4 rounded-3xl bg-white p-6 shadow-sm ring-1 ring-slate-100"
+      >
+        <h2 class="text-lg font-semibold">Thawing guidelines at a glance</h2>
+        <p class="text-sm text-slate-700">
+          These times are based on typical whole turkeys using common food
+          safety guidelines. Always allow a little extra time when you can.
+        </p>
+        <div class="grid gap-4 md:grid-cols-2 text-xs text-slate-700">
+          <!-- Fridge method -->
+          <div class="space-y-2">
+            <p class="font-semibold">
+              Fridge method (about 24 hours per 4–5 lb)
+            </p>
+            <table class="w-full border-collapse text-left">
+              <thead>
+                <tr class="border-b border-slate-200">
+                  <th class="py-1 pr-2">Turkey weight</th>
+                  <th class="py-1">Approx. thaw time</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="border-b border-slate-100">
+                  <td class="py-1 pr-2">4–12 lb</td>
+                  <td class="py-1">1–3 days</td>
+                </tr>
+                <tr class="border-b border-slate-100">
+                  <td class="py-1 pr-2">12–16 lb</td>
+                  <td class="py-1">3–4 days</td>
+                </tr>
+                <tr class="border-b border-slate-100">
+                  <td class="py-1 pr-2">16–20 lb</td>
+                  <td class="py-1">4–5 days</td>
+                </tr>
+                <tr>
+                  <td class="py-1 pr-2">20–24 lb</td>
+                  <td class="py-1">5–6 days</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Cold-water method -->
+          <div class="space-y-2">
+            <p class="font-semibold">
+              Cold-water method (about 30 minutes per lb)
+            </p>
+            <table class="w-full border-collapse text-left">
+              <thead>
+                <tr class="border-b border-slate-200">
+                  <th class="py-1 pr-2">Turkey weight</th>
+                  <th class="py-1">Approx. thaw time</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="border-b border-slate-100">
+                  <td class="py-1 pr-2">4–12 lb</td>
+                  <td class="py-1">2–6 hours</td>
+                </tr>
+                <tr class="border-b border-slate-100">
+                  <td class="py-1 pr-2">12–16 lb</td>
+                  <td class="py-1">6–8 hours</td>
+                </tr>
+                <tr class="border-b border-slate-100">
+                  <td class="py-1 pr-2">16–20 lb</td>
+                  <td class="py-1">8–10 hours</td>
+                </tr>
+                <tr>
+                  <td class="py-1 pr-2">20–24 lb</td>
+                  <td class="py-1">10–12 hours</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <p class="text-[11px] text-slate-500">
+          Keep fridge temperatures at or below 40°F (4°C). For cold-water
+          thawing, place the turkey in a leak-proof bag, fully submerge it in
+          cold water, change the water every 30 minutes, and cook the turkey
+          immediately after thawing.
         </p>
       </section>
 
@@ -343,8 +514,21 @@
           <a
             href="/"
             class="underline-offset-4 hover:text-primary hover:underline"
-            >Christmas light cost calculator</a
           >
+            Christmas light cost calculator
+          </a>
+          <a
+            href="/about.html"
+            class="underline-offset-4 hover:text-primary hover:underline"
+          >
+            About
+          </a>
+          <a
+            href="/privacy.html"
+            class="underline-offset-4 hover:text-primary hover:underline"
+          >
+            Privacy
+          </a>
           <span>Stress-free holiday cooking 🦃</span>
         </div>
       </div>
